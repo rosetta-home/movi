@@ -6,7 +6,7 @@ start movi client like so
 
  The calling process will receive response messages in the form of
 
-        {:event, %{code => code, message => message}}
+        {:event, %{:code => code, :message => message}}
 
 ## Installation
 
