@@ -1,6 +1,8 @@
 # Movi
 
-**TODO: Add description**
+start movi client like so
+
+        Movi.start_link "/dev/ttyUSB0"
 
 ## Installation
 
@@ -17,4 +19,3 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
         def application do
           [applications: [:movi]]
         end
-
