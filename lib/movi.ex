@@ -134,7 +134,7 @@ defmodule Movi do
         Logger.info "Connecting..."
         Serial.connect(:serial)
         Logger.info "Running"
-        {:ok, %{:message => "", :events => events}}
+        {:ok, %{:message => "", :events => events, :handlers => []}}
     end
 
     def handle_call({:say, text}, _from, state) do
@@ -273,8 +273,14 @@ defmodule Movi do
     end
 
     def handle_call({:handler, handler}, {pid, _} = from, state) do
-        GenEvent.add_handler(state.events, handler, pid)
-        {:reply, :ok, state}
+        GenEvent.add_mon_handler(state.events, handler, pid)
+        {:reply, :ok, %{state | :handlers => [{handler, pid} | state.handlers]}}
+    end
+
+    def handle_info({:gen_event_EXIT, handler, reason}, state) do
+        Enum.each(state.handlers, fn(h) ->
+            GenEvent.add_mon_handler(state.events, elem(h, 0), elem(h, 1))
+        end)
     end
 
     def handle_info({:elixir_serial, _serial, data}, state) do
