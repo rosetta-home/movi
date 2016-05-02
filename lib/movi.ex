@@ -281,6 +281,7 @@ defmodule Movi do
         Enum.each(state.handlers, fn(h) ->
             GenEvent.add_mon_handler(state.events, elem(h, 0), elem(h, 1))
         end)
+        {:noreply, state}
     end
 
     def handle_info({:elixir_serial, _serial, data}, state) do
