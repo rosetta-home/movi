@@ -11,7 +11,7 @@ defmodule Movi.Mixfile do
   end
 
   def application do
-      [applications: [:logger]]
+      [applications: [:logger, :serial]]
   end
 
   defp deps do
