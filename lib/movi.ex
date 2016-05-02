@@ -1,5 +1,8 @@
 defmodule Movi do
     use GenServer
+    require Logger
+
+    @speed Application.get_env(:movi, :speed)
 
     defmodule Event do
         defstruct [:code, :message]
@@ -124,9 +127,13 @@ defmodule Movi do
     def init(tty) do
         GenServer.start_link(Serial, self(), name: :serial)
         {:ok, events} = GenEvent.start_link([])
+        Logger.info "Starting Serial: #{tty}"
         Serial.open(:serial, tty)
-        Serial.set_speed(:serial, Application.get_env(:movi, :speed))
+        Logger.info "Setting Speed: #{@speed}"
+        Serial.set_speed(:serial, @speed)
+        Logger.info "Connecting..."
         Serial.connect(:serial)
+        Logger.info "Running"
         {:ok, %{:message => "", :events => events}}
     end
 
