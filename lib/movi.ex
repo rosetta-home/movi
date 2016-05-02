@@ -1,8 +1,16 @@
 defmodule Movi do
     use GenServer
 
+    defmodule Event do
+        defstruct [:code, :message]
+    end
+
     def start_link(tty) do
         GenServer.start_link(__MODULE__, tty, name: __MODULE__)
+    end
+
+    def add_handler(handler) do
+        GenServer.call(__MODULE__, {:handler, handler})
     end
 
     def say(text) do
@@ -115,152 +123,158 @@ defmodule Movi do
 
     def init(tty) do
         GenServer.start_link(Serial, self(), name: :serial)
+        {:ok, events} = GenEvent.start_link([])
         Serial.open(:serial, tty)
         Serial.set_speed(:serial, Application.get_env(:movi, :speed))
         Serial.connect(:serial)
-        {:ok, %{:message => "", :pid => nil}}
+        {:ok, %{:message => "", :events => events}}
     end
 
-    def handle_call({:say, text}, {pid, _} = _from, state) do
+    def handle_call({:say, text}, _from, state) do
         Serial.send_data(:serial, "SAY #{text}\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:threshold, percentage}, {pid, _} = _from, state) do
+    def handle_call({:threshold, percentage}, _from, state) do
         Serial.send_data(:serial, "THRESHOLD #{percentage}\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:help}, {pid, _} = _from, state) do
+    def handle_call({:help}, _from, state) do
         Serial.send_data(:serial, "HELP\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:shutdown}, {pid, _} = _from, state) do
+    def handle_call({:shutdown}, _from, state) do
         Serial.send_data(:serial, "SHUTDOWN\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:about}, {pid, _} = _from, state) do
+    def handle_call({:about}, _from, state) do
         Serial.send_data(:serial, "ABOUT\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:version}, {pid, _} = _from, state) do
+    def handle_call({:version}, _from, state) do
         Serial.send_data(:serial, "VERSION\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:hwversion}, {pid, _} = _from, state) do
+    def handle_call({:hwversion}, _from, state) do
         Serial.send_data(:serial, "HWVERSION\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:ping}, {pid, _} = _from, state) do
+    def handle_call({:ping}, _from, state) do
         Serial.send_data(:serial, "PING\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:volume, percentage}, {pid, _} = _from, state) do
+    def handle_call({:volume, percentage}, _from, state) do
         Serial.send_data(:serial, "VOLUME #{percentage}\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:stop}, {pid, _} = _from, state) do
+    def handle_call({:stop}, _from, state) do
         Serial.send_data(:serial, "STOP\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:restart}, {pid, _} = _from, state) do
+    def handle_call({:restart}, _from, state) do
         Serial.send_data(:serial, "RESTART\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:factory}, {pid, _} = _from, state) do
+    def handle_call({:factory}, _from, state) do
         Serial.send_data(:serial, "FACTORY\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:password}, {pid, _} = _from, state) do
+    def handle_call({:password}, _from, state) do
         Serial.send_data(:serial, "PASSWORD\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:female}, {pid, _} = _from, state) do
+    def handle_call({:female}, _from, state) do
         Serial.send_data(:serial, "FEMALE\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:male}, {pid, _} = _from, state) do
+    def handle_call({:male}, _from, state) do
         Serial.send_data(:serial, "MALE\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:vocabulary}, {pid, _} = _from, state) do
+    def handle_call({:vocabulary}, _from, state) do
         Serial.send_data(:serial, "VOCABULARY\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:callsign, callsign}, {pid, _} = _from, state) do
+    def handle_call({:callsign, callsign}, _from, state) do
         Serial.send_data(:serial, "CALLSIGN #{callsign}\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:train}, {pid, _} = _from, state) do
+    def handle_call({:train}, _from, state) do
         Serial.send_data(:serial, "TRAIN\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:systemmessages, bool}, {pid, _} = _from, state) do
+    def handle_call({:systemmessages, bool}, _from, state) do
         Serial.send_data(:serial, "SYSTEMMESSAGES #{bool}\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:responses, bool}, {pid, _} = _from, state) do
+    def handle_call({:responses, bool}, _from, state) do
         Serial.send_data(:serial, "RESPONSES #{bool}\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:beeps, bool}, {pid, _} = _from, state) do
+    def handle_call({:beeps, bool}, _from, state) do
         Serial.send_data(:serial, "BEEPS #{bool}\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:welcomemessage, bool}, {pid, _} = _from, state) do
+    def handle_call({:welcomemessage, bool}, _from, state) do
         Serial.send_data(:serial, "WELCOMEMESSAGE #{bool}\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:micdebug, bool}, {pid, _} = _from, state) do
+    def handle_call({:micdebug, bool}, _from, state) do
         Serial.send_data(:serial, "MICDEBUG #{bool}\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:init}, {pid, _} = _from, state) do
+    def handle_call({:init}, _from, state) do
         Serial.send_data(:serial, "INIT\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:newsentences}, {pid, _} = _from, state) do
+    def handle_call({:newsentences}, _from, state) do
         Serial.send_data(:serial, "NEWSENTENCES\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:addsentence, sentence}, {pid, _} = _from, state) do
+    def handle_call({:addsentence, sentence}, _from, state) do
         Serial.send_data(:serial, "ADDSENTENCE #{sentence}\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_call({:trainsentences}, {pid, _} = _from, state) do
+    def handle_call({:trainsentences}, _from, state) do
         Serial.send_data(:serial, "TRAINSENTENCES\r\n")
-        {:reply, :ok, %{state | :pid => pid}}
+        {:reply, :ok, state}
     end
 
-    def handle_info({:elixir_serial, serial, data}, state) do
-        new_state = %{state | :message => state[:message] <> data}
+    def handle_call({:handler, handler}, {pid, _} = from, state) do
+        GenEvent.add_handler(state.events, handler, pid)
+        {:reply, :ok, state}
+    end
+
+    def handle_info({:elixir_serial, _serial, data}, state) do
+        new_state = %{state | :message => state.message <> data}
         case data do
             "\n" ->
-                send(state.pid, {:event, new_state.message |> create_event})
+                GenEvent.notify(state.events, new_state.message |> create_event)
                 new_state = %{new_state | :message => ""}
             _ ->
                 :ok
@@ -270,7 +284,7 @@ defmodule Movi do
 
     defp create_event(message) do
         event = Regex.named_captures(~r"\[(?<code>\d+)\]: (?<message>.+)$", String.strip(message))
-        %{event | "code" => String.to_integer(event["code"])}
+        %Event{:code => String.to_integer(event["code"]), :message => event["message"]}
     end
 
 end
