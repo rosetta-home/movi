@@ -279,7 +279,7 @@ defmodule Movi do
 
     def handle_info({:elixir_serial, _serial, data}, state) do
         new_state = %{state | :message => state.message <> data}
-        Logger.info(new_state.message)
+        Logger.info(data)
         case data do
             "\n" ->
                 GenEvent.notify(state.events, new_state.message |> create_event)
