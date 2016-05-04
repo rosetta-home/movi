@@ -21,7 +21,7 @@ defmodule Movi do
     end
 
     def threshold(percentage) do
-        GenServer.call(__MODULE__, {:treshold, percentage})
+        GenServer.call(__MODULE__, {:threshold, percentage})
     end
 
     def help do
