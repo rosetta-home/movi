@@ -288,8 +288,13 @@ defmodule Movi do
         new_state = %{state | :message => state.message <> data}
         case String.ends_with?(new_state.message, ["\n", "\r"]) do
             true ->
-                GenEvent.notify(state.events, new_state.message |> create_event)
-                new_state = %{new_state | :message => ""}
+                case ev = create_event(new_state.message) do
+                    %Event{} ->
+                        GenEvent.notify(state.events, ev)
+                        new_state = %{new_state | :message => ""}
+                    nil ->
+                        new_state = %{new_state | :message => ""}
+                end
             _ ->
                 :ok
         end
@@ -298,7 +303,11 @@ defmodule Movi do
 
     defp create_event(message) do
         event = Regex.named_captures(~r"\[(?<code>\d+)\]: (?<message>.+)$", String.strip(message))
-        %Event{:code => event["code"], :message => String.split(event["message"])}
+        cond do
+            message != nil ->
+                %Event{:code => event["code"], :message => String.split(event["message"])}
+            true ->
+                nil
+        end
     end
-
 end
