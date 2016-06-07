@@ -298,7 +298,7 @@ defmodule Movi do
 
     defp create_event(message) do
         event = Regex.named_captures(~r"\[(?<code>\d+)\]: (?<message>.+)$", String.strip(message))
-        %Event{:code => event["code"], :message => event["message"]}
+        %Event{:code => event["code"], :message => String.split(event["message"])}
     end
 
 end
