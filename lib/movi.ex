@@ -126,7 +126,7 @@ defmodule Movi do
 
     def init(tty) do
         GenServer.start_link(Serial, self(), name: :serial)
-        {:ok, events} = GenEvent.start_link([])
+        {:ok, events} = GenEvent.start_link([{:name, Movi.Events}])
         Logger.info "Starting Serial: #{tty}"
         Serial.open(:serial, tty)
         Logger.info "Setting Speed: #{@speed}"
