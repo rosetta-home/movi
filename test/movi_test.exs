@@ -3,9 +3,8 @@ defmodule MoviTest do
   doctest Movi
 
   test "receive event from movi" do
-      Movi.start_link "/dev/ttyUSB0"
-      Movi.add_handler(Movi.Handler)
-      Movi.say("MOAVEE is awesome")
+      Movi.Client.add_handler(Movi.Handler)
+      Movi.Client.say("MOAVEE is awesome")
       assert_receive(%Movi.Event{:code => 150}, 5000) #start speaking event
   end
 

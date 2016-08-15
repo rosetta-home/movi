@@ -10,7 +10,10 @@ use Mix.Config
 
 # You can configure for your application as:
 #
-config :movi, speed: 9600
+config :movi,
+    speed: 9600,
+    tty: "/dev/ttyUSB0"
+
 #
 # And access this configuration in your application as:
 #
