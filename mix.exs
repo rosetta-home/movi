@@ -13,7 +13,28 @@ defmodule Movi.Mixfile do
   def application do
     [
       applications: [:logger, :serial],
-      mod: {Movi, []}
+      mod: {Movi, []},
+      env: [
+        speed: 9600,
+        tty: "/dev/ttyUSB0"
+      ]
+    ]
+  end
+
+  def description do
+      """
+      A library for communicating with the Audeme MOVI™ Voice Control Shield]
+      """
+  end
+
+  def package do
+    [
+      name: :movi,
+      files: ["lib", "mix.exs", "README*", "LICENSE*"],
+      maintainers: ["Christopher Steven Coté"],
+      licenses: ["MIT License"],
+      links: %{"GitHub" => "https://github.com/NationalAssociationOfRealtors/movi",
+          "Docs" => "https://github.com/NationalAssociationOfRealtors/movi"}
     ]
   end
 

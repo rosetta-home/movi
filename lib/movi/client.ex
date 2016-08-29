@@ -130,7 +130,7 @@ defmodule Movi.Client do
         Serial.set_speed(Movi.Serial, speed)
         Logger.debug "Connecting..."
         Serial.connect(Movi.Serial)
-        Logger.info "Running"
+        Logger.debug "Running"
         {:ok, %{:message => "", :events => events, :handlers => []}}
     end
 
@@ -288,6 +288,7 @@ defmodule Movi.Client do
                 case ev = create_event(new_state.message) do
                     %Event{} ->
                         GenEvent.notify(state.events, ev)
+                        Logger.debug("Event: #{inspect ev}")
                         new_state = %{new_state | :message => ""}
                     nil ->
                         new_state = %{new_state | :message => ""}
