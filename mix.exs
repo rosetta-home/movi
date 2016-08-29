@@ -7,6 +7,8 @@ defmodule Movi.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     description: description(),
+     package: package(),
      deps: deps]
   end
 
@@ -23,7 +25,7 @@ defmodule Movi.Mixfile do
 
   def description do
       """
-      A library for communicating with the Audeme MOVI™ Voice Control Shield]
+      A library for communicating with the Audeme MOVI™ Voice Control Shield
       """
   end
 
@@ -40,7 +42,7 @@ defmodule Movi.Mixfile do
 
   defp deps do
     [
-        {:serial, github: "bitgamma/elixir_serial", tag: "v0.1.2"},
+        {:serial, "~> 0.1.2"},
     ]
   end
 end

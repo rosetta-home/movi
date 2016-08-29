@@ -11,4 +11,4 @@
   "nerves_wpa_supplicant": {:git, "https://github.com/nerves-project/nerves_wpa_supplicant.git", "6e0716cf9cf9f63f983438772d893c0cca82e756", []},
   "providers": {:hex, :providers, "1.6.0"},
   "relx": {:hex, :relx, "3.19.0"},
-  "serial": {:git, "https://github.com/bitgamma/elixir_serial.git", "0ea4220a2a44451f33b20cb2a71adb4265b29d61", [tag: "v0.1.2"]}}
+  "serial": {:hex, :serial, "0.1.2", "8c0959331417372bf58f259dbc106c59bb7ed482cb3f63f3765150c02cf14b88", [:mix, :make], []}}
