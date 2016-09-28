@@ -2,6 +2,7 @@ defmodule Movi.Client do
     use GenServer
     require Logger
     alias Movi.Event
+    alias Nerves.UART, as: Serial
 
     def start_link() do
         GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
@@ -123,149 +124,146 @@ defmodule Movi.Client do
         tty = Application.get_env(:movi, :tty)
         speed = Application.get_env(:movi, :speed)
         {:ok, serial} = Serial.start_link([{:name, Movi.Serial}])
-        {:ok, events} = GenEvent.start_link([{:name, Movi.Events}])
         Logger.debug "Starting Serial: #{tty}"
-        Serial.open(Movi.Serial, tty)
-        Logger.debug "Setting Speed: #{speed}"
-        Serial.set_speed(Movi.Serial, speed)
-        Logger.debug "Connecting..."
-        Serial.connect(Movi.Serial)
+        Serial.configure(Movi.Serial, framing: {Serial.Framing.Line, separator: "\r\n"})
+        Serial.open(Movi.Serial, tty, speed: speed, active: true)
+        {:ok, events} = GenEvent.start_link([{:name, Movi.Events}])
         Logger.debug "Running"
         {:ok, %{:message => "", :events => events, :handlers => []}}
     end
 
     def handle_call({:say, text}, _from, state) do
-        Serial.send_data(Movi.Serial, "SAY #{text}\r\n")
+        Serial.write(Movi.Serial, "SAY #{text}\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:threshold, percentage}, _from, state) do
-        Serial.send_data(Movi.Serial, "THRESHOLD #{percentage}\r\n")
+        Serial.write(Movi.Serial, "THRESHOLD #{percentage}\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:help}, _from, state) do
-        Serial.send_data(Movi.Serial, "HELP\r\n")
+        Serial.write(Movi.Serial, "HELP\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:shutdown}, _from, state) do
-        Serial.send_data(Movi.Serial, "SHUTDOWN\r\n")
+        Serial.write(Movi.Serial, "SHUTDOWN\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:about}, _from, state) do
-        Serial.send_data(Movi.Serial, "ABOUT\r\n")
+        Serial.write(Movi.Serial, "ABOUT\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:version}, _from, state) do
-        Serial.send_data(Movi.Serial, "VERSION\r\n")
+        Serial.write(Movi.Serial, "VERSION\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:hwversion}, _from, state) do
-        Serial.send_data(Movi.Serial, "HWVERSION\r\n")
+        Serial.write(Movi.Serial, "HWVERSION\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:ping}, _from, state) do
-        Serial.send_data(Movi.Serial, "PING\r\n")
+        Serial.write(Movi.Serial, "PING\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:volume, percentage}, _from, state) do
-        Serial.send_data(Movi.Serial, "VOLUME #{percentage}\r\n")
+        Serial.write(Movi.Serial, "VOLUME #{percentage}\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:stop}, _from, state) do
-        Serial.send_data(Movi.Serial, "STOP\r\n")
+        Serial.write(Movi.Serial, "STOP\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:restart}, _from, state) do
-        Serial.send_data(Movi.Serial, "RESTART\r\n")
+        Serial.write(Movi.Serial, "RESTART\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:factory}, _from, state) do
-        Serial.send_data(Movi.Serial, "FACTORY\r\n")
+        Serial.write(Movi.Serial, "FACTORY\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:password}, _from, state) do
-        Serial.send_data(Movi.Serial, "PASSWORD\r\n")
+        Serial.write(Movi.Serial, "PASSWORD\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:female}, _from, state) do
-        Serial.send_data(Movi.Serial, "FEMALE\r\n")
+        Serial.write(Movi.Serial, "FEMALE\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:male}, _from, state) do
-        Serial.send_data(Movi.Serial, "MALE\r\n")
+        Serial.write(Movi.Serial, "MALE\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:vocabulary}, _from, state) do
-        Serial.send_data(Movi.Serial, "VOCABULARY\r\n")
+        Serial.write(Movi.Serial, "VOCABULARY\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:callsign, callsign}, _from, state) do
-        Serial.send_data(Movi.Serial, "CALLSIGN #{callsign}\r\n")
+        Serial.write(Movi.Serial, "CALLSIGN #{callsign}\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:train}, _from, state) do
-        Serial.send_data(Movi.Serial, "TRAIN\r\n")
+        Serial.write(Movi.Serial, "TRAIN\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:systemmessages, bool}, _from, state) do
-        Serial.send_data(Movi.Serial, "SYSTEMMESSAGES #{bool}\r\n")
+        Serial.write(Movi.Serial, "SYSTEMMESSAGES #{bool}\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:responses, bool}, _from, state) do
-        Serial.send_data(Movi.Serial, "RESPONSES #{bool}\r\n")
+        Serial.write(Movi.Serial, "RESPONSES #{bool}\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:beeps, bool}, _from, state) do
-        Serial.send_data(Movi.Serial, "BEEPS #{bool}\r\n")
+        Serial.write(Movi.Serial, "BEEPS #{bool}\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:welcomemessage, bool}, _from, state) do
-        Serial.send_data(Movi.Serial, "WELCOMEMESSAGE #{bool}\r\n")
+        Serial.write(Movi.Serial, "WELCOMEMESSAGE #{bool}\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:micdebug, bool}, _from, state) do
-        Serial.send_data(Movi.Serial, "MICDEBUG #{bool}\r\n")
+        Serial.write(Movi.Serial, "MICDEBUG #{bool}\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:init}, _from, state) do
-        Serial.send_data(Movi.Serial, "INIT\r\n")
+        Serial.write(Movi.Serial, "INIT\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:newsentences}, _from, state) do
-        Serial.send_data(Movi.Serial, "NEWSENTENCES\r\n")
+        Serial.write(Movi.Serial, "NEWSENTENCES\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:addsentence, sentence}, _from, state) do
-        Serial.send_data(Movi.Serial, "ADDSENTENCE #{sentence}\r\n")
+        Serial.write(Movi.Serial, "ADDSENTENCE #{sentence}\r\n")
         {:reply, :ok, state}
     end
 
     def handle_call({:trainsentences}, _from, state) do
-        Serial.send_data(Movi.Serial, "TRAINSENTENCES\r\n")
+        Serial.write(Movi.Serial, "TRAINSENTENCES\r\n")
         {:reply, :ok, state}
     end
 
@@ -281,20 +279,22 @@ defmodule Movi.Client do
         {:noreply, state}
     end
 
-    def handle_info({:elixir_serial, _serial, data}, state) do
-        new_state = %{state | :message => state.message <> data}
-        case String.ends_with?(new_state.message, ["\n", "\r"]) do
-            true ->
-                case ev = create_event(new_state.message) do
-                    %Event{} ->
-                        GenEvent.notify(state.events, ev)
-                        Logger.debug("Event: #{inspect ev}")
-                        new_state = %{new_state | :message => ""}
-                    nil ->
-                        new_state = %{new_state | :message => ""}
-                end
-            _ ->
-                :ok
+    def handle_info({:nerves_uart, _serial, {:partial, data}}, state) do
+        {:noreply, state}
+    end
+
+    def handle_info({:nerves_uart, _serial, {:error, :ebadf}}, state) do
+        {:noreply, state}
+    end
+
+    def handle_info({:nerves_uart, _serial, data}, state) do
+        message = state.message <> data |> String.trim
+        new_state = case ev = create_event(message) do
+            %Event{} ->
+                GenEvent.notify(state.events, ev)
+                Logger.debug("Event: #{inspect ev}")
+                %{state | :message => ""}
+            nil -> %{state | :message => ""}
         end
         {:noreply, new_state}
     end

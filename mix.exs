@@ -3,8 +3,8 @@ defmodule Movi.Mixfile do
 
   def project do
     [app: :movi,
-     version: "0.0.1",
-     elixir: "~> 1.2",
+     version: "0.1.1",
+     elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      description: description(),
@@ -14,11 +14,11 @@ defmodule Movi.Mixfile do
 
   def application do
     [
-      applications: [:logger, :serial],
+      applications: [:logger, :nerves_uart],
       mod: {Movi, []},
       env: [
         speed: 9600,
-        tty: "/dev/ttyUSB0"
+        tty: "/dev/ttyUSB35345345"
       ]
     ]
   end
@@ -34,7 +34,7 @@ defmodule Movi.Mixfile do
       name: :movi,
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["Christopher Steven Coté"],
-      licenses: ["MIT License"],
+      licenses: ["Apache License 2.0"],
       links: %{"GitHub" => "https://github.com/NationalAssociationOfRealtors/movi",
           "Docs" => "https://github.com/NationalAssociationOfRealtors/movi"}
     ]
@@ -42,7 +42,8 @@ defmodule Movi.Mixfile do
 
   defp deps do
     [
-        {:serial, "~> 0.1.2"},
+        {:nerves_uart, "~> 0.1.1"},
+        {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 end
