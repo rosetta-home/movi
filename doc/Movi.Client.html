@@ -1,0 +1,715 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.13.2">
+    <title>Movi.Client – movi v0.1.1</title>
+    <link rel="stylesheet" href="dist/app-bbdf358507.css" />
+    
+      <link rel="canonical" href="https://hexdocs.pm/movi/Movi.Client.html" />
+    
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="modules">
+    <script>if(localStorage.getItem('night-mode')) document.body.className += ' night-mode';</script>
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        movi
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.1.1
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div class="content-outer">
+    <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">movi v0.1.1</small>
+        Movi.Client
+        
+        
+      </h1>
+
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <i class="icon-link"></i>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#about/0">about()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#add_handler/1">add_handler(handler)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#addsentence/1">addsentence(sentence)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#beeps/1">beeps(bool \\ &quot;ON&quot;)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#callsign/1">callsign(callsign)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#factory/0">factory()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#female/0">female()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#help/0">help()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#hwversion/0">hwversion()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#init_board/0">init_board()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#male/0">male()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#micdebug/1">micdebug(bool \\ &quot;ON&quot;)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#newsentences/0">newsentences()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#password/0">password()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#ping/0">ping()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#responses/1">responses(bool \\ &quot;ON&quot;)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#restart/0">restart()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#say/1">say(text)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#shutdown/0">shutdown()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#start_link/0">start_link()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#stop/0">stop()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#systemmessages/1">systemmessages(bool \\ &quot;ON&quot;)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#threshold/1">threshold(percentage)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#train/0">train()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#trainsentences/0">trainsentences()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#version/0">version()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#vocabulary/0">vocabulary()</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#volume/1">volume(percentage)</a>
+  </div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#welcomemessage/1">welcomemessage(bool \\ &quot;ON&quot;)</a>
+  </div>
+  
+</div>
+
+  </div>
+
+
+          
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <i class="icon-link"></i>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="about/0">
+  <div class="detail-header">
+    <a href="#about/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">about()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="add_handler/1">
+  <div class="detail-header">
+    <a href="#add_handler/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">add_handler(handler)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="addsentence/1">
+  <div class="detail-header">
+    <a href="#addsentence/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">addsentence(sentence)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="beeps/1">
+  <div class="detail-header">
+    <a href="#beeps/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">beeps(bool \\ &quot;ON&quot;)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="callsign/1">
+  <div class="detail-header">
+    <a href="#callsign/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">callsign(callsign)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="factory/0">
+  <div class="detail-header">
+    <a href="#factory/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">factory()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="female/0">
+  <div class="detail-header">
+    <a href="#female/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">female()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="help/0">
+  <div class="detail-header">
+    <a href="#help/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">help()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="hwversion/0">
+  <div class="detail-header">
+    <a href="#hwversion/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">hwversion()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="init_board/0">
+  <div class="detail-header">
+    <a href="#init_board/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">init_board()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="male/0">
+  <div class="detail-header">
+    <a href="#male/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">male()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="micdebug/1">
+  <div class="detail-header">
+    <a href="#micdebug/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">micdebug(bool \\ &quot;ON&quot;)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="newsentences/0">
+  <div class="detail-header">
+    <a href="#newsentences/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">newsentences()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="password/0">
+  <div class="detail-header">
+    <a href="#password/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">password()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="ping/0">
+  <div class="detail-header">
+    <a href="#ping/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">ping()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="responses/1">
+  <div class="detail-header">
+    <a href="#responses/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">responses(bool \\ &quot;ON&quot;)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="restart/0">
+  <div class="detail-header">
+    <a href="#restart/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">restart()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="say/1">
+  <div class="detail-header">
+    <a href="#say/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">say(text)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="shutdown/0">
+  <div class="detail-header">
+    <a href="#shutdown/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">shutdown()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="start_link/0">
+  <div class="detail-header">
+    <a href="#start_link/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">start_link()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="stop/0">
+  <div class="detail-header">
+    <a href="#stop/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">stop()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="systemmessages/1">
+  <div class="detail-header">
+    <a href="#systemmessages/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">systemmessages(bool \\ &quot;ON&quot;)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="threshold/1">
+  <div class="detail-header">
+    <a href="#threshold/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">threshold(percentage)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="train/0">
+  <div class="detail-header">
+    <a href="#train/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">train()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="trainsentences/0">
+  <div class="detail-header">
+    <a href="#trainsentences/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">trainsentences()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="version/0">
+  <div class="detail-header">
+    <a href="#version/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">version()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="vocabulary/0">
+  <div class="detail-header">
+    <a href="#vocabulary/0" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">vocabulary()</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="volume/1">
+  <div class="detail-header">
+    <a href="#volume/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">volume(percentage)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+<div class="detail" id="welcomemessage/1">
+  <div class="detail-header">
+    <a href="#welcomemessage/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">welcomemessage(bool \\ &quot;ON&quot;)</span>
+    
+    
+  </div>
+  
+  <section class="docstring">
+    
+  </section>
+</div>
+
+        </section>
+      
+
+      
+
+      
+          <footer class="footer">
+        <p>
+          <span class="line">
+            Built using
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.13.2),
+          </span>
+          <span class="line">
+            designed by
+            <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+            </span>
+        </p>
+        <button class="night-mode-toggle" />
+      </footer>
+    </div>
+  </div>
+</section>
+</div>
+  <script src="dist/app-9b2d1e432c.js"></script>
+  </body>
+</html>
+
